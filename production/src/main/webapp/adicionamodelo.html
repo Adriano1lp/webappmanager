@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html ng-app="adicionaModelo">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cadastro de Modelos</title>
+        <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="lib/css/style.css">
+        <script src="lib/js/angular.js"></script>
+        <script src="lib/js/app.js"></script>
+        <script src="lib/js/controllers/adicionaModeloCtrl.js"></script>
+    </head>
+    <body ng-controller="adicionaModeloCtrl">
+        <div class="jumbotron">
+            <form name="modeloForm" >
+	            <div  class="form-row">
+	                <div class="form-group col-md-4">
+	                    <h4>{{app}}</h4> 
+	                    {{modelo}}
+	                </div>
+	                <div class="form-group col-md-4">
+	                	<h6>Login: {{username}}</h4>
+	                </div>
+	                <div class="form-group col-md-4" align="right">
+	                    <h6>{{ data | date:'dd/MM/yyyy HH:mm:ss'}}</h6>                                       
+	                </div>
+	            </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="codigosap">Codigo Sap:</label>
+                        <input name="codigosap" class="form-control" type="text" ng-model="modelo.codigosap" placeholder="Codigo Sap" ng-required="true" ng-minlength="11"/>
+                        <div ng-if="modeloForm.codigosap.$error.required && modeloForm.codigosap.$dirty" class="alert alert-danger">
+                            Por favor, preencha o numero do Codigo!    
+                        </div>
+                        <div ng-if="modeloForm.codigosap.$error.minlength" class="alert alert-danger">
+                            O campo Codigo Sap deve ter no mínimo 11 caracteres!    
+                        </div>                        
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="segmento">Segmento:</label>
+                        <input name="segmento" class="form-control" type="text" ng-model="modelo.segmento" placeholder="Segmento" ng-required="true" ng-minlength="1"/>
+                        <div ng-if="modeloForm.segmento.$error.required && modeloForm.segmento.$dirty" class="alert alert-danger">
+                            Por favor, preencha o Segmento!    
+                        </div>
+                        <div ng-if="modeloForm.segmento.$error.minlength" class="alert alert-danger">
+                            O campo Segmento deve ter no mínimo 1 caracter!    
+                        </div>                     
+                    </div>
+                    <div class="form-group col-md-3">
+
+                	</div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="modelo">Modelo:</label>
+                        <input name="modelo" class="form-control" type="text" ng-model="modelo.modelo" placeholder="Modelo" ng-required="true" ng-minlength="1"/>
+                        <div ng-if="modeloForm.modelo.$error.required && modeloForm.modelo.$dirty" class="alert alert-danger">
+                            Por favor, preencha o Modelo!    
+                        </div>
+                        <div ng-if="modeloForm.modelo.$error.minlength" class="alert alert-danger">
+                            O campo Modelo deve ter no mínimo 1 caracter!    
+                        </div> 
+                    </div>
+                    <div class="form-group col-md-3">
+
+                    </div>
+                    <div class="form-group col-md-3">
+
+                    </div>            
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+    
+                    </div>
+                    <div class="form-group col-md-3">
+                                              
+                    </div>
+                    <div class="form-group col-md-3">
+
+                    </div>
+				</div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <input name="busca" class="form-control mb-2 mr-sm-2" type="text" ng-model="pesquisa" placeholder="Pesquisar"/>
+                    </div>
+                </div>
+            </form>
+            <div>
+
+                <button class="btn btn-primary" ng-click="adicionarModelo(modelo)" ng-disabled="modeloForm.$invalid">Adicionar</button> 
+                <button class="btn btn-danger" ng-click="deletarModelo(modelos)" ng-disabled="!isModeloSelecionado(modelos)">  Deletar  </button>
+            </div>
+
+			<table ng-if="modelos.length > 0" class="table table-bordered">
+                <tr>
+                    <th><a href="" ng-click="ordenarPor('codigosap')">Codigo Sap</a></th>
+                    <th><a href="" ng-click="ordenarPor('modelo')">Modelos</a></th>
+                    <th><a href="" ng-click="ordenarPor('segmento')"></a>Segmento:</th>
+                    <th></th>
+                </tr>
+                <tr ng-class="{selecionado: modelo.selecionado}" ng-repeat="modelo in modelos | filter:pesquisa | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+                    <td>{{modelo.codigosap}}</td>
+                    <td>{{modelo.modelo}}</td>
+                    <td>{{modelo.segmento}}</td>
+                    <td><input type="checkbox" ng-model="modelo.selecionado"></td>
+                </tr> 
+            </table>
+        </div>   
+    </body>
+</html>
