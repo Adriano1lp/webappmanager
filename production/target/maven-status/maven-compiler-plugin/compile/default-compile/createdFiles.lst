@@ -21,4 +21,3 @@ br\com\webapp\controller\ReparoHistoricoController.class
 br\com\webapp\controller\Teste.class
 br\com\webapp\connection\ConnectionFactory.class
 br\com\webapp\controller\ReparoDeleteController.class
-Hello.class
