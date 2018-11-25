@@ -13,12 +13,14 @@
 	<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="lib/css/style.css">
 	<link rel="stylesheet" type="text/css" href="lib/css/simple-sidebar.css">
-
+	<script src="lib/js/angular.js"></script>
+	<script src="lib/js/app.js"></script>
   	<script src="lib/js/jquery.min.js"></script>
   	<script src="lib/bootstrap/bootstrap.min.js"></script>
 	<script src="lib/js/angular.js"></script>
 	<script src="lib/js/app.js"></script>   
-
+	<script src="lib/js/lightbox.js"></script>
+	<script src="lib/js/controllers/adicionaMaterialCtrl.js"></script>
 </head>
 
 <body>
@@ -27,11 +29,9 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
+            <ul id ="menu" class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                        Menu
-                    </a>
+                    <a href="#">Menu</a>
                 </li>
                 <li>
                     <a id="addmaterial" href="#material" data-toggle="collapse" data-target="#material">Adicionar Material</a>
@@ -66,481 +66,16 @@
 
         </div>
        	<div id="material" class="collapse">
-			<html ng-app="adicionaMaterial">
-			    <head>
-			        <meta charset="UTF-8">
-			        <title>Adicionando Material</title>
-			       
-			        <script src="lib/js/controllers/adicionaMaterialCtrl.js"></script>
-			    </head>
-			    <body ng-controller="adicionaMaterialCtrl">
-			        <div class="jumbotron">
-			            <form name="materialForm" >
-				            <div  class="form-row">
-				                <div class="form-group col-md-4">
-				                    <h4>{{app}}</h4> 
 
-				                </div>
-				                <div class="form-group col-md-4">
-				                	<h6>Login: {{username}}</h4>
-				                </div>
-				                <div class="form-group col-md-4" align="right">
-				                    <h6>{{ data | date:'dd/MM/yyyy HH:mm:ss'}}</h6>                                       
-				                </div>
-				            </div>
-			
-			                <div class="form-row">
-			                    <div class="form-group col-md-6">
-			                        <label for="modelo">Modelo:</label>
-			                        <select name="modelo" class="form-control" ng-model="material"  ng-options=" modelo as modelo.modelo +' - '+ modelo.codigosap group by  modelo.segmento for modelo in modelos | orderBy:'codigosap'">
-			                            <option value="">Selecione o modelo</option>        
-			                        </select>
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>            
-			                </div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-3">
-			                        <label for="serie">Serie:</label>
-			                        <input name="serie" class="form-control" type="text" ng-model="material.serie" placeholder="Serie" ng-required="true" ng-minlength="18"/>
-			                        <div ng-if="materialForm.serie.$error.required && materialForm.serie.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero de Serie!    
-			                        </div>
-			                        <div ng-if="materialForm.serie.$error.minlength" class="alert alert-danger">
-			                            O campo Serie deve ter no mínimo 18 caracteres!    
-			                        </div>                        
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                        <label for="casid">CasId:</label>
-			                        <input name="casid" class="form-control" type="text" ng-model="material.casid" placeholder="Cas Id" ng-required="true" ng-minlength="12"/>
-			                        <div ng-if="materialForm.casid.$error.required && materialForm.casid.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero do CasId!    
-			                        </div>
-			                         <div ng-if="materialForm.casid.$error.minlength" class="alert alert-danger">
-			                            O campo Casid deve ter no mínimo 12 caracteres!    
-			                        </div>                       
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                        <label for="mac">Mac:</label>
-			                        <input name="mac" class="form-control mb-2 mr-sm-2" type="text" ng-model="material.mac" placeholder="Mac" ng-required="true" />
-			                        <div ng-if="materialForm.mac.$error.required && materialForm.mac.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero do Mac!    
-			                        </div>
-			                        <div ng-if="materialForm.mac.$error.pattern" class="alert alert-danger">
-			                            O campo Mac deve ter o seguinte formato: AA:BB:CC:DD:EE:FF!    
-			                        </div>                        
-			                    </div>
-			                </div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-3">
-			                        <label for="notafiscal">Nota Fiscal:</label>
-			                        <input name="notafiscal" class="form-control mb-2 mr-sm-2" type="text" ng-model="material.notafiscal" placeholder="Nota Fiscal" ng-required="true"/>
-			                        <div ng-if="materialForm.notafiscal.$invalid && materialForm.notafiscal.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero do Nota Fiscal!    
-			                        </div>                        
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                        <label for="pedido">Pedido:</label>
-			                        <input name="pedido" class="form-control mb-2 mr-sm-2" type="text" ng-model="material.pedido" placeholder="Pedido" ng-required="true"/>
-			                        <div ng-if="materialForm.pedido.$invalid && materialForm.pedido.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero do Pedido!    
-			                        </div>                        
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                        <label for="data">Data:</label>
-			                        <input name="data" class="form-control mb-2 mr-sm-2" type="Text" ng-model="material.data" placeholder="Data" ng-required="true"/>
-			                        <div ng-if="materialForm.data.$invalid && materialForm.data.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero do Data!    
-			                        </div>
-			                    </div>
-							</div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-3">
-			                        <input name="busca" class="form-control mb-2 mr-sm-2" type="text" ng-model="pesquisa" placeholder="Pesquisar"/>
-			                    </div>
-			                </div>
-			            </form>
-			            <div>
-			                <button class="btn btn-primary" ng-click="adicionarMaterial(material)" ng-disabled="materialForm.$invalid">Adicionar</button> 
-			                <button class="btn btn-danger" ng-click="deletarMaterial(materiais)" ng-disabled="!isMaterialSelecionado(materiais)">  Deletar  </button>
-			            </div>
-			
-						<table ng-if="materiais.length > 0" class="table table-bordered">
-			                <tr>
-			                    <th><a href="" ng-click="ordenarPor('serie')">Serie</a></th>
-			                    <th>CasId</th>
-			                    <th>Mac</th>
-			                    <th><a href="" ng-click="ordenarPor('modelo')">Modelo</a></th>
-			                    <th><a href="" ng-click="ordenarPor('codigosap')">Codigo Sap</a></th>
-			                    <th><a href="" ng-click="ordenarPor('notafiscal')"></a>Nota Fiscal</th>
-			                    <th><a href="" ng-click="ordenarPor('pedido')"></a>Pedido</th>
-			                    <th>Data</th>
-			                    <th></th>
-			                </tr>
-			                <tr ng-class="{selecionado: material.selecionado}" ng-repeat="material in materiais | filter:pesquisa | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-			                    <td>{{material.serie}}</td>
-			                    <td>{{material.casid}}</td>
-			                    <td>{{material.mac}}</td>
-			                    <td>{{material.modelo | uppercase}}</td>
-			                    <td>{{material.codigosap}}</td>
-			                    <td>{{material.notafiscal}}</td>
-			                    <td>{{material.pedido}}</td>
-			                    <td>{{material.data | date:'dd/MM/yyyy HH:mm'}}</td>
-			                    <td><input type="checkbox" ng-model="material.selecionado"></td>
-			                </tr> 
-			            </table>
-			        </div>   
-			    </body>
-			</html> 
 	    </div>
 		<div id="modelo" class="collapse">
-			<html ng-app="adicionaModelo">
-			    <head>
-			        <meta charset="UTF-8">
-			        <title>Cadastro de Modelos</title>
-					
-			        <script src="lib/js/controllers/adicionaModeloCtrl.js"></script>
-			    </head>
-			    <body ng-controller="adicionaModeloCtrl">
-			        <div class="jumbotron">
-			            <form name="modeloForm" >
-				            <div  class="form-row">
-				                <div class="form-group col-md-4">
-				                    <h4>Cadastro de Modelos</h4> 
-				               
-				                </div>
-				                <div class="form-group col-md-4">
-				                	<h6>Login: {{username}}</h4>
-				                </div>
-				                <div class="form-group col-md-4" align="right">
-				                    <h6>{{ data | date:'dd/MM/yyyy HH:mm:ss'}}</h6>                                       
-				                </div>
-				            </div>
-			
-			
-			                <div class="form-row">
-			                    <div class="form-group col-md-3">
-			                        <label for="codigosap">Codigo Sap:</label>
-			                        <input name="codigosap" class="form-control" type="text" ng-model="modelo.codigosap" placeholder="Codigo Sap" ng-required="true" ng-minlength="11"/>
-			                        <div ng-if="modeloForm.codigosap.$error.required && modeloForm.codigosap.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero do Codigo!    
-			                        </div>
-			                        <div ng-if="modeloForm.codigosap.$error.minlength" class="alert alert-danger">
-			                            O campo Codigo Sap deve ter no mínimo 11 caracteres!    
-			                        </div>                        
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                        <label for="segmento">Segmento:</label>
-			                        <input name="segmento" class="form-control" type="text" ng-model="modelo.segmento" placeholder="Segmento" ng-required="true" ng-minlength="1"/>
-			                        <div ng-if="modeloForm.segmento.$error.required && modeloForm.segmento.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o Segmento!    
-			                        </div>
-			                        <div ng-if="modeloForm.segmento.$error.minlength" class="alert alert-danger">
-			                            O campo Segmento deve ter no mínimo 1 caracter!    
-			                        </div>                     
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                	</div>
-			                </div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-6">
-			                        <label for="modelo">Modelo:</label>
-			                        <input name="modelo" class="form-control" type="text" ng-model="modelo.modelo" placeholder="Modelo" ng-required="true" ng-minlength="1"/>
-			                        <div ng-if="modeloForm.modelo.$error.required && modeloForm.modelo.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o Modelo!    
-			                        </div>
-			                        <div ng-if="modeloForm.modelo.$error.minlength" class="alert alert-danger">
-			                            O campo Modelo deve ter no mínimo 1 caracter!    
-			                        </div> 
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>            
-			                </div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-6">
-			    
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                                              
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>
-							</div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-3">
-			                        <input name="busca" class="form-control mb-2 mr-sm-2" type="text" ng-model="pesquisa" placeholder="Pesquisar"/>
-			                    </div>
-			                </div>
-			            </form>
-			            <div>
-			
-			                <button class="btn btn-primary" ng-click="adicionarModelo(modelo)" ng-disabled="modeloForm.$invalid">Adicionar</button> 
-			                <button class="btn btn-danger" ng-click="deletarModelo(modelos)" ng-disabled="!isModeloSelecionado(modelos)">  Deletar  </button>
-			            </div>
-			
-						<table ng-if="modelos.length > 0" class="table table-bordered">
-			                <tr>
-			                    <th><a href="" ng-click="ordenarPor('codigosap')">Codigo Sap</a></th>
-			                    <th><a href="" ng-click="ordenarPor('modelo')">Modelos</a></th>
-			                    <th><a href="" ng-click="ordenarPor('segmento')"></a>Segmento:</th>
-			                    <th></th>
-			                </tr>
-			                <tr ng-class="{selecionado: modelo.selecionado}" ng-repeat="modelo in modelos | filter:pesquisa | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-			                    <td>{{modelo.codigosap}}</td>
-			                    <td>{{modelo.modelo}}</td>
-			                    <td>{{modelo.segmento}}</td>
-			                    <td><input type="checkbox" ng-model="modelo.selecionado"></td>
-			                </tr> 
-			            </table>
-			        </div>   
-			    </body>
-			</html>			
+		
 		</div>
        	<div id="reparo" class="collapse">
-			<html ng-app="infoReparo">
-			    <head>
-			        <meta charset="UTF-8">
-			        <title>Informaçoes de Reparo</title>
-			       
-			        <script src="lib/js/controllers/infoReparoCtrl.js"></script>
-			    </head>
-			    <body ng-controller="infoReparoCtrl">
-			        <div class="jumbotron">
-			            <form name="materialForm" >
-				            <div  class="form-row">
-				                <div class="form-group col-md-4">
-				                    <h4>Informaçoes de Reparo</h4> 
-				            
-				                </div>
-				                <div class="form-group col-md-4">
-				                	<h6>Login: {{username}}</h4>
-				                </div>
-				                <div class="form-group col-md-4" align="right">
-				                    <h6>{{ data | date:'dd/MM/yyyy HH:mm:ss'}}</h6>                                       
-				                </div>
-				            </div>
-			
-			
-			                <div class="form-row">
-			                    <div class="form-group col-md-3">
-			                        <label for="serie">Serie:</label>
-			                        <input name="serie" class="form-control" type="text" ng-model="material.serie" placeholder="Serie" ng-required="true" ng-minlength="18"/>
-			                        <div ng-if="materialForm.serie.$error.required && materialForm.serie.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero de Serie!    
-			                        </div>
-			                        <div ng-if="materialForm.serie.$error.minlength" class="alert alert-danger">
-			                            O campo Serie deve ter no mínimo 18 caracteres!    
-			                        </div>                        
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                        <label for="data">Data:</label>
-			                        <input name="data" class="form-control mb-2 mr-sm-2" type="Text" ng-model="material.data" placeholder="Data" ng-required="true"/>
-			                        <div ng-if="materialForm.data.$invalid && materialForm.data.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero do Data!    
-			                        </div>                      
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                    	 <div class="form-row">
-					                    <div class="form-group col-md-4">
-					                        <div class="custom-control custom-checkbox">
-					    						<input type="checkbox" class="custom-control-input" id="Reparo" ng-model="material.reparo">
-					    						<label class="custom-control-label" for="Reparo">Reparo</label>
-					    					</div>
-							             </div>
-							             <div class="form-group col-md-4">
-							    			<div class="custom-control custom-checkbox">
-					    						<input type="checkbox" class="custom-control-input" id="Triagem" ng-model="material.triagem">
-					    						<label class="custom-control-label" for="Triagem">Triagem</label>
-					    					</div>
-							            </div>
-							            <div class="form-group col-md-4">
-							    			<div class="custom-control custom-checkbox">
-					    						<input type="checkbox" class="custom-control-input" id="scr" ng-model="material.scr">
-					    						<label class="custom-control-label" for="scr">S.C.R</label>
-											</div>
-					                    </div>            
-			                		</div>
-			                	</div>
-			                </div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-6">
-			                         <label for="defeito">Defeitos:</label>
-			                        <select name="defeito" class="form-control" ng-model="material.defeito"  ng-options=" defeito.defeito as defeito.defeito group by  defeito.codigosap for defeito in defeitos | orderBy:'codigosap'">
-			                            <option value="">Selecione o defeito</option>        
-			                        </select>
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>            
-			                </div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-6">
-			                        <label for="observacao">Observaçoes:</label>
-			  						<textarea name="observacao" class="form-control"  ng-model="material.observacao" rows="4" ></textarea>       
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                                              
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>
-							</div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-3">
-			                        <input name="busca" class="form-control mb-2 mr-sm-2" type="text" ng-model="pesquisa" placeholder="Pesquisar"/>
-			                    </div>
-			                </div>
-			            </form>
-			            <div>
-			            	<button class="btn btn-success" ng-click="pesquisaHistorico(material)">  Historico  </button>
-			                <button class="btn btn-primary" ng-click="adicionarReparo(material)" ng-disabled="materialForm.$invalid">Adicionar</button> 
-			                <button class="btn btn-danger" ng-click="deletarReparo(materiais)" ng-disabled="!isMaterialSelecionado(materiais)">  Deletar  </button>
-			            </div>
-			
-						<table ng-if="materiais.length > 0" class="table table-bordered">
-			                <tr>
-			                    <th><a href="">Serie</a></th>
-			                    <th><a href="">Defeitos</a></th>
-			                    <th><a href=""></a>Obs:</th>
-			                    <th><a href=""></a>Status:</th>
-			                    <th><a href="" ng-click="ordenarPor('pedido')"></a>Data</th>
-			                    <th></th>
-			                </tr>
-			                <tr ng-class="{selecionado: material.selecionado}" ng-repeat="material in materiais | filter:pesquisa | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-			                    <td>{{material.serie}}</td>
-			                    <td>{{material.defeito}}</td>
-			                    <td>{{material.observacao}}</td>
-			                    <td>{{material.reparo}}{{material.triagem}}{{material.scr}}</td>
-			                    <td>{{material.data | date:'dd/MM/yyyy HH:mm'}}</td>
-			                    <td><input type="checkbox" ng-model="material.selecionado"></td>
-			                </tr> 
-			            </table>
-			        </div>   
-			    </body>
-			</html>       	
+       	
        	</div>
         <div id="cq" class="collapse">
-			<html ng-app="infoCq">
-			    <head>
-			        <meta charset="UTF-8">
-			        <title>Informaçoes de Controle de Qualidade</title>
 
-			        <script src="lib/js/controllers/infoCqCtrl.js"></script>
-			    </head>
-			    <body ng-controller="infoCqCtrl">
-			        <div class="jumbotron">
-			            <form name="materialForm" >
-				            <div  class="form-row">
-				                <div class="form-group col-md-4">
-				                    <h4>{{app}}</h4> 
-				                    {{material}}
-				                </div>
-				                <div class="form-group col-md-4">
-				                	<h6>Login: {{username}}</h4>
-				                </div>
-				                <div class="form-group col-md-4" align="right">
-				                    <h6>{{ data | date:'dd/MM/yyyy HH:mm:ss'}}</h6>                                       
-				                </div>
-				            </div>
-			
-			
-			                <div class="form-row">
-			                    <div class="form-group col-md-3">
-			                        <label for="serie">Serie:</label>
-			                        <input name="serie" class="form-control" type="text" ng-model="material.serie" placeholder="Serie" ng-required="true" ng-minlength="18"/>
-			                        <div ng-if="materialForm.serie.$error.required && materialForm.serie.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o numero de Serie!    
-			                        </div>
-			                        <div ng-if="materialForm.serie.$error.minlength" class="alert alert-danger">
-			                            O campo Serie deve ter no mínimo 18 caracteres!    
-			                        </div>                        
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                        <label for="data">Data:</label>
-			                        <input name="data" class="form-control mb-2 mr-sm-2" type="Text" ng-model="material.data" placeholder="Data" ng-required="true"/>
-			                        <div ng-if="materialForm.data.$invalid && materialForm.data.$dirty" class="alert alert-danger">
-			                            Por favor, preencha o campo Data!    
-			                        </div>                      
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                    	 <div class="form-row">
-			            
-			                		</div>
-			                	</div>
-			                </div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-6">
-			                         <label for="statuscq">Status do CQ:</label>
-			                        <select name="statuscq" class="form-control" ng-model="material.statuscq">
-			                            <option value="">Selecione o defeito</option>
-			                            <option value="APROVADO">APROVADO</option>
-			                            <option value="REPROVADO">REPROVADO</option>         
-			                        </select>
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>            
-			                </div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-6">
-			                        <label for="observacao">Observaçoes:</label>
-			  						<textarea name="observacao" class="form-control"  ng-model="material.observacao" rows="4" ></textarea>       
-			                    </div>
-			                    <div class="form-group col-md-3">
-			                                              
-			                    </div>
-			                    <div class="form-group col-md-3">
-			
-			                    </div>
-							</div>
-			                <div class="form-row">
-			                    <div class="form-group col-md-3">
-			                        <input name="busca" class="form-control mb-2 mr-sm-2" type="text" ng-model="pesquisa" placeholder="Pesquisar"/>
-			                    </div>
-			                </div>
-			            </form>
-			            <div>
-			            	<button class="btn btn-success" ng-click="pesquisaHistorico(material)">  Historico  </button>
-			                <button class="btn btn-primary" ng-click="adicionarCq(material)" ng-disabled="materialForm.$invalid">Adicionar</button> 
-			                <button class="btn btn-danger" ng-click="deletarCq(materiais)" ng-disabled="!isMaterialSelecionado(materiais)">  Deletar  </button>
-			            </div>
-			
-						<table ng-if="materiais.length > 0" class="table table-bordered">
-			                <tr>
-			                    <th><a href="">Serie</a></th>
-			                    <th><a href="">Status</a></th>
-			                    <th><a href=""></a>Obs:</th>
-			           
-			                    <th><a href="" ng-click="ordenarPor('pedido')"></a>Data</th>
-			                    <th></th>
-			                </tr>
-			                <tr ng-class="{selecionado: material.selecionado}" ng-repeat="material in materiais | filter:pesquisa | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-			                    <td>{{material.serie}}</td>
-			                    <td>{{material.statuscq}}</td>
-			                    <td>{{material.obs}}</td>
-			                    <td>{{material.data | date:'dd/MM/yyyy HH:mm'}}</td>
-			                    <td><input type="checkbox" ng-model="material.selecionado"></td>
-			                </tr> 
-			            </table>
-			        </div>   
-			    </body>
-			</html>
         </div>
         <!-- /#page-content-wrapper -->
 
@@ -550,13 +85,30 @@
     <!-- Bootstrap core JavaScript -->
     <script src="lib/js/jquery.min.js"></script>
     <script src="lib/bootstrap/bootstrap.bundle.min.js"></script>
-
+	
     <!-- Menu Toggle Script -->
     <script>
 	    $("#menu-toggle").click(function(e) {
 	        e.preventDefault();
 	        $("#wrapper").toggleClass("toggled");
 	    });
+		
+		
+		$("#addmaterial").click(function(e){
+			e.preventDefault();
+			$(document).ready(function(){
+				$.ajax({
+					type : 'POST',
+					url : 'material.html',
+					success : function(resultado){
+						$('#material').html(resultado);
+					},
+					error : function(){
+						alert("Ocorreu um erro!");
+					}
+				});				
+			});
+		});	
     </script>
   
 </body>
