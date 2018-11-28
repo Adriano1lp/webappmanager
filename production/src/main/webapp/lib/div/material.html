@@ -1,0 +1,120 @@
+<div class="jumbotron" ng-controller="adicionaMaterialCtrl">
+    <form name="materialForm" >
+        <div  class="form-row">
+            <div class="form-group col-md-4">
+                <h4>{{app}}</h4> 
+                {{material}}
+            </div>
+            <div class="form-group col-md-4">
+                <h6>Login: {{username}}</h4>
+            </div>
+            <div class="form-group col-md-4" align="right">
+                <h6>{{ data | date:'dd/MM/yyyy HH:mm:ss'}}</h6>                                       
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="modelo">Modelo:</label>
+                <select name="modelo" class="form-control" ng-model="material"  ng-options=" modelo as modelo.modelo +' - '+ modelo.codigosap group by  modelo.segmento for modelo in modelos | orderBy:'codigosap'">
+                    <option value="">Selecione o modelo</option>        
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+
+            </div>
+            <div class="form-group col-md-3">
+
+            </div>            
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="serie">Serie:</label>
+                <input name="serie" class="form-control" type="text" ng-model="material.serie" placeholder="Serie" ng-required="true" ng-minlength="18"/>
+                <div ng-if="materialForm.serie.$error.required && materialForm.serie.$dirty" class="alert alert-danger">
+                    Por favor, preencha o numero de Serie!    
+                </div>
+                <div ng-if="materialForm.serie.$error.minlength" class="alert alert-danger">
+                    O campo Serie deve ter no mínimo 18 caracteres!    
+                </div>                        
+            </div>
+            <div class="form-group col-md-3">
+                <label for="casid">CasId:</label>
+                <input name="casid" class="form-control" type="text" ng-model="material.casid" placeholder="Cas Id" ng-required="true" ng-minlength="12"/>
+                <div ng-if="materialForm.casid.$error.required && materialForm.casid.$dirty" class="alert alert-danger">
+                    Por favor, preencha o numero do CasId!    
+                </div>
+                 <div ng-if="materialForm.casid.$error.minlength" class="alert alert-danger">
+                    O campo Casid deve ter no mínimo 12 caracteres!    
+                </div>                       
+            </div>
+            <div class="form-group col-md-3">
+                <label for="mac">Mac:</label>
+                <input name="mac" class="form-control mb-2 mr-sm-2" type="text" ng-model="material.mac" placeholder="Mac" ng-required="true" />
+                <div ng-if="materialForm.mac.$error.required && materialForm.mac.$dirty" class="alert alert-danger">
+                    Por favor, preencha o numero do Mac!    
+                </div>
+                <div ng-if="materialForm.mac.$error.pattern" class="alert alert-danger">
+                    O campo Mac deve ter o seguinte formato: AA:BB:CC:DD:EE:FF!    
+                </div>                        
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="notafiscal">Nota Fiscal:</label>
+                <input name="notafiscal" class="form-control mb-2 mr-sm-2" type="text" ng-model="material.notafiscal" placeholder="Nota Fiscal" ng-required="true"/>
+                <div ng-if="materialForm.notafiscal.$invalid && materialForm.notafiscal.$dirty" class="alert alert-danger">
+                    Por favor, preencha o numero do Nota Fiscal!    
+                </div>                        
+            </div>
+            <div class="form-group col-md-3">
+                <label for="pedido">Pedido:</label>
+                <input name="pedido" class="form-control mb-2 mr-sm-2" type="text" ng-model="material.pedido" placeholder="Pedido" ng-required="true"/>
+                <div ng-if="materialForm.pedido.$invalid && materialForm.pedido.$dirty" class="alert alert-danger">
+                    Por favor, preencha o numero do Pedido!    
+                </div>                        
+            </div>
+            <div class="form-group col-md-3">
+                <label for="data">Data:</label>
+                <input name="data" class="form-control mb-2 mr-sm-2" type="Text" ng-model="material.data" placeholder="Data" ng-required="true"/>
+                <div ng-if="materialForm.data.$invalid && materialForm.data.$dirty" class="alert alert-danger">
+                    Por favor, preencha o numero do Data!    
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <input name="busca" class="form-control mb-2 mr-sm-2" type="text" ng-model="pesquisa" placeholder="Pesquisar"/>
+            </div>
+        </div>
+    </form>
+    <div>
+        <button class="btn btn-primary" ng-click="adicionarMaterial(material)" ng-disabled="materialForm.$invalid">Adicionar</button> 
+        <button class="btn btn-danger" ng-click="deletarMaterial(materiais)" ng-disabled="!isMaterialSelecionado(materiais)">  Deletar  </button>
+    </div>
+
+    <table ng-if="materiais.length > 0" class="table table-bordered">
+        <tr>
+            <th><a href="" ng-click="ordenarPor('serie')">Serie</a></th>
+            <th>CasId</th>
+            <th>Mac</th>
+            <th><a href="" ng-click="ordenarPor('modelo')">Modelo</a></th>
+            <th><a href="" ng-click="ordenarPor('codigosap')">Codigo Sap</a></th>
+            <th><a href="" ng-click="ordenarPor('notafiscal')"></a>Nota Fiscal</th>
+            <th><a href="" ng-click="ordenarPor('pedido')"></a>Pedido</th>
+            <th>Data</th>
+            <th></th>
+        </tr>
+        <tr ng-class="{selecionado: material.selecionado}" ng-repeat="material in materiais | filter:pesquisa | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+            <td>{{material.serie}}</td>
+            <td>{{material.casid}}</td>
+            <td>{{material.mac}}</td>
+            <td>{{material.modelo | uppercase}}</td>
+            <td>{{material.codigosap}}</td>
+            <td>{{material.notafiscal}}</td>
+            <td>{{material.pedido}}</td>
+            <td>{{material.data | date:'dd/MM/yyyy HH:mm'}}</td>
+            <td><input type="checkbox" ng-model="material.selecionado"></td>
+        </tr> 
+    </table>
+</div>

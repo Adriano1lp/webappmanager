@@ -1,125 +1,140 @@
 <!DOCTYPE html>
 <html>
     <head>
-
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-
-        <title>Simple Sidebar - Start Bootstrap Template</title>
-
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+        <title>Collapsible sidebar using Bootstrap 4</title>
+    
+        <!-- Bootstrap CSS CDN -->
+        <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css" >
         <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css">
+        <!-- Our Custom CSS -->
         <link rel="stylesheet" type="text/css" href="lib/css/style.css">
-        <link rel="stylesheet" type="text/css" href="lib/css/simple-sidebar.css">
-        <script src="lib/js/jquery.min.js"></script>
-        <script src="lib/bootstrap/bootstrap.min.js"></script>   
-        <script src="lib/js/lightbox.js"></script>
-        <script>
-                $("#menu-toggle").click(function(e) {
-                    e.preventDefault();
-                    $("#wrapper").toggleClass("toggled");
-                });
-                
-                $(document).ready(function(){
-                    $('#menu').on('click', 'a', function(){
-                        $('#material').load('material.html');
-                        return false;
-                    });
-                });
-            /*	$("#addmaterial").on('click', function(e){
-                    $(document).ready(function(){
-                        $('#material').load('material.html');
-                        $.ajax({
-                            async: true,
-                            type : 'POST',
-                            url : 'material.html',
-                            contentType: "application/json; charset=utf-8",
-                        
-                            success : function(resultado){
-                                console.log(resultado);
-                            
-                            
-                            },
-                            error : function(){
-                                alert("Ocorreu um erro!");
-                            }
-                        });	
-                    });	
-                });	
-            */
-            </script>
-    </head>
 
-    <body>
+        <!-- Font Awesome JS -->
+        <script defer src="lib/js/solid.js"></script>
+        <script defer src="lib/js/fontawesome.js"></script>
 
-        <div id="wrapper">
-
-            <!-- Sidebar -->
-            <div id="sidebar-wrapper">
-                <ul id ="menu" class="sidebar-nav">
-                    <li class="sidebar-brand">
-                        <a href="#">Menu</a>
+</head>
+    <body ng-app="lazyLoadApp" cz-shortcut-listen="true">
+        <div class="wrapper">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Bootstrap Sidebar</h3>
+                </div>
+        
+                <ul id="menu" class="list-unstyled components">
+                    <p>Menu</p>
+                    <li class="active">
+                        <a href=""  ui-sref-active="active" ui-sref="div1">Add Material</a>
                     </li>
                     <li>
-                        <a id="addmaterial" href="#material" data-toggle="collapse" data-target="#material">Adicionar Material</a>
+                        <a href=""  ui-sref-active="active" ui-sref="div2">Add Modelo</a>
                     </li>
                     <li>
-                        <a id="addmodelo" href="#modelo" data-toggle="collapse" data-target="#modelo">Cadastro de Modelo</a>
+                        <a href="" ui-sref-active="active" ui-sref="div3">Add C.Q</a>
                     </li>
                     <li>
-                        <a id="addreparo" href="#reparo" data-toggle="collapse" data-target="#reparo">Reparo Técnico</a>
+                        <a href="">Portfolio</a>
                     </li>
                     <li>
-                        <a id="addcq" href="#cq" data-toggle="collapse" data-target="#cq">Controle de Qualidade</a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
+                        <a href="">Contact</a>
                     </li>
                 </ul>
-            </div>
-            <!-- /#sidebar-wrapper -->
-
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
-                <div class="container-fluid">
-                    <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
-                </div>
-
-            </div>
-            <div id="material" class="collapse">
-
-            </div>
-            <div id="modelo" class="collapse">
-            
-            </div>
-            <div id="reparo" class="collapse">
-            
-            </div>
-            <div id="cq" class="collapse">
-
-            </div>
-            <!-- /#page-content-wrapper -->
-
-        </div>
-        <!-- /#wrapper -->
-
-        <!-- Bootstrap core JavaScript -->
-        <script src="lib/js/jquery.min.js"></script>
-        <script src="lib/bootstrap/bootstrap.bundle.min.js"></script>
         
-        <!-- Menu Toggle Script -->
-
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="" class="download">Download source</a>
+                    </li>
+                    <li>
+                        <a href="" class="article">Back to article</a>
+                    </li>
+                </ul>
+            </nav>
+        
+            <!-- Page Content  -->
+            <div id="content" >
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
     
+                        <button type="button" id="sidebarCollapse" class="btn btn-info">
+                            <i class="fas fa-align-left"></i>
+                            <span>Toggle Sidebar</span>
+                        </button>
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                        <!--Pode ser retirado -->
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#">Page</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Page</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Page</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Page</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!---------------------->
+                    </div>
+                </nav>
+                <!--Div de conteudo dinamico-->
+                <ui-view></ui-view>
+                <!--Pagina de adicionar Modelo-->
+
+            </div>
+        </div>
+        <!-- jQuery CDN - Slim version (=without AJAX) -->
+        <script src="lib/js/jquery.min.js"></script>
+        <!-- Popper.JS -->
+        <script src="lib/js/popper.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="lib/bootstrap/bootstrap.min.js"></script>
+        <!-- ocLazyLoad -->
+        <script src="lib/angular/angular.min.js"></script>
+        <script src="lib/angular/angular-ui-router.min.js"></script>
+        <script src="lib/angular/ocLazyLoad.min.js"></script>
+        <script src="lib/js/app.js"></script>
+        <script src="lib/angular/angular.js"></script>
+        <script src="lib/js/controllers/homeCtrl.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                });
+                
+                $('#menu').on('click', 'a', function(){
+                    console.log(this);
+                /*    $.ajax($(this).attr('href')).done(function(data){
+                        $('#conteudo').html(data);
+                    });    */
+
+                    //alert("Ta funcionando");
+                    //$('#conteudo').load('material.html');
+
+            //        var adicionaMaterialCtrl = 'lib/js/controllers/adicionaMaterialCtrl.js';
+            //        $.getScript(adicionaMaterialCtrl, function(data, textStatus, jqxhr){
+            //            console.log('adicionaMaterialCtrl.js carregado');
+            //            $('#conteudo').load('material.html');
+                        
+            //        });
+                   
+              
+                    
+                });
+            });
+
+                        
+        </script>
     </body>
-
 </html>
-

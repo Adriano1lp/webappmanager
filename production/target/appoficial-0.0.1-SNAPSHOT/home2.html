@@ -17,13 +17,13 @@
         <script defer src="lib/js/fontawesome.js"></script>
 
         <!-- JavaScript da pagina filho-->
-        <script type="text/javascript" src="lib/js/angular.js"></script>
+        
         
         
         
 
     </head>
-    <body>
+    <body ng-app="lazyLoadApp" cz-shortcut-listen="true">
         <div class="wrapper">
             <!-- Sidebar  -->
             <nav id="sidebar">
@@ -34,10 +34,10 @@
                 <ul id="menu" class="list-unstyled components">
                     <p>Dummy Heading</p>
                     <li class="active">
-                        <a href="#conteudo" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Add Material</a>
+                        <a href="#conteudo"  ui-sref-active="active" ui-sref="div1">Add Material</a>
                     </li>
                     <li>
-                        <a href="#addmodelo" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Add Modelo</a>
+                        <a href="#addmodelo"  ui-sref-active="active" ui-sref="div2">Add Modelo</a>
                     </li>
                     <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
@@ -93,9 +93,9 @@
                     </div>
                 </nav>
                 <!--Div de conteudo dinamico-->
-                <div id="conteudo" class='collapse'>Teste</div>
-                <!--Pagina de Adicionar material-->
-                
+                <div class="row">
+                    <ui-view></ui-view>
+                </div>
                 <!--Pagina de adicionar Modelo-->
 
             </div>
@@ -107,7 +107,12 @@
         <!-- Bootstrap JS -->
         <script src="lib/bootstrap/bootstrap.min.js"></script>
         <!-- ocLazyLoad -->
-        <script src="lib/js/ocLazyLoad.js"></script>
+        <script src="lib/angular/angular.min.js"></script>
+        <script src="lib/angular/angular-ui-router.min.js"></script>
+        <script src="lib/angular/ocLazyLoad.min.js"></script>
+        <script src="lib/js/app.js"></script>
+        <script src="lib/js/controllers/homeCtrl.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#sidebarCollapse').on('click', function () {
@@ -121,13 +126,8 @@
                     });    */
 
                     //alert("Ta funcionando");
+                    //$('#conteudo').load('material.html');
 
-                    var myApp = angular.module("MyApp", ["oc.lazyLoad"]);
-                    myApp.controller("MyCtrl", function($ocLazyLoad){
-                        $ocLazyLoad.load('lib/js/app.js');
-                        console.log('funcao myApp carregado');
-                        $('#conteudo').load('material.html');
-                    })
             //        var adicionaMaterialCtrl = 'lib/js/controllers/adicionaMaterialCtrl.js';
             //        $.getScript(adicionaMaterialCtrl, function(data, textStatus, jqxhr){
             //            console.log('adicionaMaterialCtrl.js carregado');
