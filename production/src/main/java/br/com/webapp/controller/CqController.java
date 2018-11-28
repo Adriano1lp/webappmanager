@@ -17,7 +17,7 @@ import br.com.webapp.util.JsonUtil;
 
 /**
  * Servlet implementation class CqController 
- * Data Edição: 16/11/2018
+ * Data Ediï¿½ï¿½o: 16/11/2018
  * @author Adriano Lima Pereira
  * @version 1.0 
  */
@@ -36,7 +36,7 @@ public class CqController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Cq> cq = cqRepository.selectCqAdicionado();
-		resp.getWriter().print(cq);
+		resp.getWriter().print(gson.toJson(cq));
 	}
 
 	/**
@@ -46,8 +46,10 @@ public class CqController extends HttpServlet {
 		String json = JsonUtil.lerJson(req.getReader());
 		//Convertendo o json para objetos cq
 		Cq cq = gson.fromJson(json.toString(), Cq.class);
+		resp.getWriter().print(cq);
 		cqRepository.setValores(cq);
 		if (cqRepository.adicionaCq(cq)) {
+			
 			resp.getWriter().print("Cq Adicionado com sucesso\n");
 		
 		}else {

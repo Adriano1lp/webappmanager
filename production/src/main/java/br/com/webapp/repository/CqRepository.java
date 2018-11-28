@@ -25,29 +25,20 @@ public class CqRepository {
 	}
 	
 	public Boolean adicionaCq(Cq dados) {
-		String sql = "select * from equipamento where ( serie = ? or casid = ? ) and saida = ?";
+		String sql1 = "update equipamento set usuariocq = ?, datacq = ?, statuscq = ?, observacaocq = ? where ( serie = ? or casid = ? ) and saida = ?";
 		try {
-			PreparedStatement  stmt = con.prepareStatement(sql);
-			stmt.setString(1, dados.getSerie());
-			stmt.setString(2, dados.getSerie());
-			stmt.setString(3, "false");
-			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
-				String sql1 = "update equipamento set usuariocq = ?, datacq = ?, statuscq = ?, observacaocq = ? where ( serie = ? or casid = ? ) and saida = ?";
-				PreparedStatement  stmt1 = con.prepareStatement(sql1);
-				stmt1.setString(1, dados.getLogin());
-				stmt1.setString(2, dados.getData());
-				stmt1.setString(3, dados.getStatuscq());
-				stmt1.setString(4, dados.getObservacaocq());
-				stmt1.setString(5, dados.getSerie());
-				stmt1.setString(6, dados.getSerie());
-				stmt1.setString(7, "false");
-				stmt1.execute();
-				stmt1.close();
-				return true;
-			}else {
-				return false;
-			}
+			System.out.println("Observação: "+dados.getLogin());;
+			PreparedStatement  stmt1 = con.prepareStatement(sql1);
+			stmt1.setString(1, dados.getLogin());
+			stmt1.setString(2, dados.getData());
+			stmt1.setString(3, dados.getStatuscq());
+			stmt1.setString(4, dados.getObservacaocq());
+			stmt1.setString(5, dados.getSerie());
+			stmt1.setString(6, dados.getSerie());
+			stmt1.setString(7, "false");
+			stmt1.execute();
+			stmt1.close();
+			return true;
 		}catch(SQLException e) {
 			String descricao = "Class ReparoRepository, Metodo adicionaReparo. SQLException";
 			System.out.println("Erro ao inserir dados no banco de dados!!"+ descricao);
