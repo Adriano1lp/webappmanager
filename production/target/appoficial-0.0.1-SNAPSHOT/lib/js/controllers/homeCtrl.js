@@ -7,14 +7,17 @@ angular.module('lazyLoadApp').config(['$ocLazyLoadProvider', '$stateProvider', '
 		'events': true, // For Event 'true/false'
 		'modules': [{ // Set modules initially
 			name : 'div1', //  module div 1
-			files: ['lib/div/adicionaMaterialCtrl.js']
+			files: ['lib/div/controllers/adicionaMaterialCtrl.js']
 		},{
 			name : 'div2', //  module div 2
-			files: ['lib/div/adicionaModeloCtrl.js']
+			files: ['lib/div/controllers/adicionaModeloCtrl.js']
 		},{
             name : 'div3',
-            files: ['lib/div/infoCqCtrl.js'] 
-        }]
+            files: ['lib/div/controllers/infoCqCtrl.js'] 
+        },{
+			name : 'div4',
+			files: ['lib/div/controllers/infoReparoCtrl.js']
+		}]
 	});
 
 	//Config/states of UI Router
@@ -57,5 +60,18 @@ angular.module('lazyLoadApp').config(['$ocLazyLoadProvider', '$stateProvider', '
                 return $ocLazyLoad.load('div3');
             }]
         }
-    });
+	})
+	.state('div4',{
+		url: "/dv",
+		views : {
+			"" : {
+				templateUrl:"lib/div/reparo.html"
+			}
+		},
+		resolve: {
+			loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+				return $ocLazyLoad.load('div4');
+			}]
+		}
+	});
 }]);
