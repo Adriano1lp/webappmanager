@@ -1,117 +1,125 @@
 <!DOCTYPE html>
-<head>
+<html>
+    <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+        <title>Simple Sidebar - Start Bootstrap Template</title>
 
-    <!-- Bootstrap core CSS -->
-	<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="lib/css/style.css">
-	<link rel="stylesheet" type="text/css" href="lib/css/simple-sidebar.css">
-	<script src="lib/js/angular.js"></script>
-	<script src="lib/js/app.js"></script>
-  	<script src="lib/js/jquery.min.js"></script>
-  	<script src="lib/bootstrap/bootstrap.min.js"></script>
-	<script src="lib/js/angular.js"></script>
-	<script src="lib/js/app.js"></script>   
-	<script src="lib/js/lightbox.js"></script>
-	<script src="lib/js/controllers/adicionaMaterialCtrl.js"></script>
-</head>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="lib/css/style.css">
+        <link rel="stylesheet" type="text/css" href="lib/css/simple-sidebar.css">
+        <script src="lib/js/jquery.min.js"></script>
+        <script src="lib/bootstrap/bootstrap.min.js"></script>   
+        <script src="lib/js/lightbox.js"></script>
+        <script>
+                $("#menu-toggle").click(function(e) {
+                    e.preventDefault();
+                    $("#wrapper").toggleClass("toggled");
+                });
+                
+                $(document).ready(function(){
+                    $('#menu').on('click', 'a', function(){
+                        $('#material').load('material.html');
+                        return false;
+                    });
+                });
+            /*	$("#addmaterial").on('click', function(e){
+                    $(document).ready(function(){
+                        $('#material').load('material.html');
+                        $.ajax({
+                            async: true,
+                            type : 'POST',
+                            url : 'material.html',
+                            contentType: "application/json; charset=utf-8",
+                        
+                            success : function(resultado){
+                                console.log(resultado);
+                            
+                            
+                            },
+                            error : function(){
+                                alert("Ocorreu um erro!");
+                            }
+                        });	
+                    });	
+                });	
+            */
+            </script>
+    </head>
 
-<body>
+    <body>
 
-    <div id="wrapper">
+        <div id="wrapper">
 
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul id ="menu" class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">Menu</a>
-                </li>
-                <li>
-                    <a id="addmaterial" href="#material" data-toggle="collapse" data-target="#material">Adicionar Material</a>
-                </li>
-                <li>
-                    <a id="addmodelo" href="#modelo" data-toggle="collapse" data-target="#modelo">Cadastro de Modelo</a>
-                </li>
-                <li>
-                    <a id="addreparo" href="#reparo" data-toggle="collapse" data-target="#reparo">Reparo Técnico</a>
-                </li>
-                <li>
-                    <a id="addcq" href="#cq" data-toggle="collapse" data-target="#cq">Controle de Qualidade</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul id ="menu" class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">Menu</a>
+                    </li>
+                    <li>
+                        <a id="addmaterial" href="#material" data-toggle="collapse" data-target="#material">Adicionar Material</a>
+                    </li>
+                    <li>
+                        <a id="addmodelo" href="#modelo" data-toggle="collapse" data-target="#modelo">Cadastro de Modelo</a>
+                    </li>
+                    <li>
+                        <a id="addreparo" href="#reparo" data-toggle="collapse" data-target="#reparo">Reparo Técnico</a>
+                    </li>
+                    <li>
+                        <a id="addcq" href="#cq" data-toggle="collapse" data-target="#cq">Controle de Qualidade</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
             </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+                </div>
+
+            </div>
+            <div id="material" class="collapse">
+
+            </div>
+            <div id="modelo" class="collapse">
+            
+            </div>
+            <div id="reparo" class="collapse">
+            
+            </div>
+            <div id="cq" class="collapse">
+
+            </div>
+            <!-- /#page-content-wrapper -->
 
         </div>
-       	<div id="material" class="collapse">
+        <!-- /#wrapper -->
 
-	    </div>
-		<div id="modelo" class="collapse">
-		
-		</div>
-       	<div id="reparo" class="collapse">
-       	
-       	</div>
-        <div id="cq" class="collapse">
+        <!-- Bootstrap core JavaScript -->
+        <script src="lib/js/jquery.min.js"></script>
+        <script src="lib/bootstrap/bootstrap.bundle.min.js"></script>
+        
+        <!-- Menu Toggle Script -->
 
-        </div>
-        <!-- /#page-content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="lib/js/jquery.min.js"></script>
-    <script src="lib/bootstrap/bootstrap.bundle.min.js"></script>
-	
-    <!-- Menu Toggle Script -->
-    <script>
-	    $("#menu-toggle").click(function(e) {
-	        e.preventDefault();
-	        $("#wrapper").toggleClass("toggled");
-	    });
-		
-		
-		$("#addmaterial").click(function(e){
-			e.preventDefault();
-			$(document).ready(function(){
-				$.ajax({
-					type : 'POST',
-					url : 'material.html',
-					success : function(resultado){
-						$('#material').html(resultado);
-					},
-					error : function(){
-						alert("Ocorreu um erro!");
-					}
-				});				
-			});
-		});	
-    </script>
-  
-</body>
+    
+    </body>
 
 </html>
 

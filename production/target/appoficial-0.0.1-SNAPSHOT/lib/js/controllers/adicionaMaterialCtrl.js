@@ -52,4 +52,5 @@ angular.module("adicionaMaterial").controller("adicionaMaterialCtrl",function($s
     };
 	carregarMaterial();
 	carregarModelo();
+
 });
