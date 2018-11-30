@@ -27,7 +27,6 @@ public class CqRepository {
 	public Boolean adicionaCq(Cq dados) {
 		String sql1 = "update equipamento set usuariocq = ?, datacq = ?, statuscq = ?, observacaocq = ? where ( serie = ? or casid = ? ) and saida = ?";
 		try {
-			System.out.println("Observação: "+ dados.getObservacaocq());;
 			PreparedStatement  stmt1 = con.prepareStatement(sql1);
 			stmt1.setString(1, dados.getLogin());
 			stmt1.setString(2, dados.getData());
