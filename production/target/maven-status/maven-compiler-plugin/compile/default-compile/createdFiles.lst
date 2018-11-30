@@ -12,6 +12,7 @@ br\com\webapp\controller\ReparoController.class
 br\com\webapp\model\Reparo.class
 br\com\webapp\repository\LoginRepository.class
 br\com\webapp\model\Login.class
+br\com\webapp\model\Saida.class
 br\com\webapp\controller\MaterialDeleteController.class
 br\com\webapp\model\Modelo.class
 br\com\webapp\controller\ModeloController.class
