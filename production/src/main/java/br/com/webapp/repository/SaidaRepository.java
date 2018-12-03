@@ -12,13 +12,15 @@ import br.com.webapp.model.Saida;
 public class SaidaRepository{
     Connection con;
 	public String login;
-	public String serie;
+    public String serie;
+    public String data;
 	public SaidaRepository() {
 		con = ConnectionFactory.getConnection();
 	}
 	public void setValores(Saida dados) {
 		this.serie = dados.serie;
-		this.login= dados.login;
+        this.login= dados.login;
+        this.data = dados.data;
     }
     public Boolean adicionaSaida(Saida dados){
         String sql = "select serie, casid, modelo, codigosap, segmento, statusreparo, diagnostico, notafiscalentrada, observacaoreparo from equipamento where serie = ? and saida = ?";
@@ -42,7 +44,7 @@ public class SaidaRepository{
                 stmt1.setString(7, "false");
                 stmt1.execute();
                 stmt1.close();
-                String sql2 = "insert into historicosaida (serie, casid, modelo, codigosap, segmento, statusreparo, diagnostico, notafiscalentrada, pedidosaida, notafiscalsaida, datasaida) values (?,?,?,?,?,?,?,?,?,?,?) ";
+                String sql2 = "insert into historicosaida (serie, casid, modelo, codigosap, segmento, statusreparo, diagnostico, notafiscalentrada, pedidosaida, notafiscalsaida, datasaida, login) values (?,?,?,?,?,?,?,?,?,?,?,?) ";
                 PreparedStatement stmt2 = con.prepareStatement(sql2);
                 stmt2.setString(1, (String) rs.getObject("serie")); 
                 stmt2.setString(2, (String) rs.getObject("casid"));
@@ -55,6 +57,7 @@ public class SaidaRepository{
                 stmt2.setString(9, (String) rs.getObject("pedidosaida"));
                 stmt2.setString(10, (String) rs.getObject("notafiscalsaida"));
                 stmt2.setString(11, (String) rs.getObject("datasaida"));
+                stmt2.setString(12, dados.getLogin());
                 stmt2.execute();
                 stmt2.close();                
                 return true;
@@ -67,5 +70,38 @@ public class SaidaRepository{
 			return false;
         }
         
+    }
+    public List<Saida> selectSaidaAdicionada(){
+        List<Saida> material = new ArrayList<>();
+        try{
+            String sql = "select serie, casid, modelo, codigosap, pedidosaida, notafiscalsaida from historicosaida where (serie = ? or casid = ?) and datasaida = ? and login = ?  ";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, this.serie);
+            stmt.setString(2, this.serie);
+            stmt.setString(3, this.data);
+            stmt.setString(4, this.login);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                Saida objeto = new Saida();
+                objeto.setSerie(rs.getString("serie"));
+                objeto.setCasid(rs.getString("casid"));
+                objeto.setModelo(rs.getString("modelo"));
+                objeto.setCodigosap(rs.getString("codigosap"));
+                objeto.setPedidosaida(rs.getString("pedidosaida"));
+                objeto.setNotafiscalsaida(rs.getString("notafiscalsaida"));
+                material.add(objeto);
+            }
+            rs.close();
+            stmt.close();
+            return material;
+
+        }catch(SQLException e){
+            String descricao = "Class SaidaRepository, Metodo adiciona. SQLException";
+            System.out.println("Erro ao inserir dados no banco de dados!!"+ descricao);
+            Log.escreveLogErro(descricao);
+            e.printStackTrace();
+            return null;
+        }
     }
 }

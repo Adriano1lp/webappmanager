@@ -9,7 +9,8 @@ public class Saida {
     public String notafiscalsaida;
     public String pedidosaida;
     public String login;
-    
+	public String codigosap;
+	
     public String getSerie() {
 		return serie;
 	}
@@ -58,6 +59,12 @@ public class Saida {
 	public void setLogin(String login) {
 		this.login = login;
 	}
+	public String getCodigosap(){
+		return codigosap;
+	}
+	public void setCodigosap(String codigo){
+		this.codigosap = codigo;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,6 +77,7 @@ public class Saida {
 		result = prime * result + ((notafiscalsaida == null) ? 0 : notafiscalsaida.hashCode());
 		result = prime * result + ((pedidosaida == null) ? 0 : pedidosaida.hashCode());
 		result = prime * result + ((serie == null) ? 0 : serie.hashCode());
+		result = prime * result + ((codigosap == null) ? 0 : codigosap.hashCode());
 		return result;
 	}
 	@Override
@@ -121,12 +129,17 @@ public class Saida {
 				return false;
 		} else if (!serie.equals(other.serie))
 			return false;
+		if (codigosap == null){
+			if (other.codigosap != null)
+				return false;
+		} else if (!codigosap.equals(other.codigosap))
+			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
 		return "Saida [serie=" + serie + ", casid=" + casid + ", cartao=" + cartao + ", modelo=" + modelo + ", data="
 				+ data + ", notafiscalsaida=" + notafiscalsaida + ", pedidosaida=" + pedidosaida + ", login=" + login
-				+ "]";
+				+ ", codigosap=" + codigosap + "]";
 	}
 }

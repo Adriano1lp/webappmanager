@@ -9,17 +9,17 @@ import java.util.Date;
 
 /**
  * Class Log com metodos responsaveis por registrar erros no sistema
- * Essa class é chamada quando há uma exception, os detalhes da exception são gravados no arquivo errolog.txt
- * Data de Edição: 24/09/2018
+ * Essa class ï¿½ chamada quando hï¿½ uma exception, os detalhes da exception sï¿½o gravados no arquivo errolog.txt
+ * Data de Ediï¿½ï¿½o: 24/09/2018
  * @author Adriano Lima Pereira
  * @version 1.0
  */
 public class Log {	
 	
 	/**
-	 * Metodo que cria, no caso de não existir, e escreve no arquivo errolog.txt
-	 * Data de Edição: 24/09/2018
-	 * @param abre arquivo no local definido e adiciona nova linha de informação
+	 * Metodo que cria, no caso de nï¿½o existir, e escreve no arquivo errolog.txt
+	 * Data de Ediï¿½ï¿½o: 24/09/2018
+	 * @param abre arquivo no local definido e adiciona nova linha de informaï¿½ï¿½o
 	 * @return null
 	 */
 	public static void escreveLogErro(String erro) {
@@ -40,6 +40,24 @@ public class Log {
 			e.printStackTrace();
 		}
 		
+	}
+	public static void escreveLog(String log){
+		Date data = new Date();
+		try{
+			String newLine = System.getProperty("line.separator");
+			FileWriter fw = new FileWriter("log/logs.txt", true);
+			
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter out = new PrintWriter(bw);
+			out.append(">> "+log+" Date: "+data+newLine);
+			out.close();
+			
+
+		} catch (IOException e) {
+			// Could not connect to the database 
+			System.out.println("Erro ao escrever Exception: Metodo escreveLogErro, class Log.");
+			e.printStackTrace();
+		}
 	}
 
 }

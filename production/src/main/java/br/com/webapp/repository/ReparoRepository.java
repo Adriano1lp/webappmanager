@@ -126,7 +126,7 @@ public class ReparoRepository {
 	public List<Reparo> selectReparoPesquisa() {
 		// Criando uma lista de material
 		List<Reparo> material = new ArrayList<>();
-		String sql = "select serie, casid, diagnostico, statusreparo, observacaoreparo, datadiagnostico from equipamento where (serie = ? or casid = ?)";
+		String sql = "select serie, casid, diagnostico, statusreparo, observacaoreparo, datadiagnostico from historicoequipamento where (serie = ? or casid = ?)";
 		try{
 			PreparedStatement  stmt = con.prepareStatement(sql);
 			stmt.setString(1, this.serie);
