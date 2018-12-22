@@ -17,6 +17,9 @@ angular.module('lazyLoadApp').config(['$ocLazyLoadProvider', '$stateProvider', '
         },{
 			name : 'div4',
 			files: ['lib/div/controllers/infoReparoCtrl.js']
+		},{
+			name : 'div5',
+			files: ['lib/div/controllers/saidaCtrl.js']
 		}]
 	});
 
@@ -71,6 +74,19 @@ angular.module('lazyLoadApp').config(['$ocLazyLoadProvider', '$stateProvider', '
 		resolve: {
 			loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad){
 				return $ocLazyLoad.load('div4');
+			}]
+		}
+	})
+	.state('div5',{
+		url: "/dv",
+		views : {
+			"" : {
+				templateUrl:"lib/div/saida.html"
+			}
+		},
+		resolve: {
+			loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+				return $ocLazyLoad.load('div5');
 			}]
 		}
 	});

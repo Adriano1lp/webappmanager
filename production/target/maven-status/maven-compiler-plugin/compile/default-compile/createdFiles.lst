@@ -1,5 +1,6 @@
 br\com\webapp\controller\ModeloDeleteController.class
 br\com\webapp\controller\LoginController.class
+br\com\webapp\controller\SaidaController.class
 br\com\webapp\repository\MaterialRepository.class
 br\com\webapp\model\Material.class
 br\com\webapp\controller\CqController.class
